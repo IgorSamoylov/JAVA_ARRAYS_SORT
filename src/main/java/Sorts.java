@@ -45,7 +45,7 @@ public class Sorts {
 
         // Creates initial Counter map
         public static void prepareMap() {
-            counter = new HashMap<>();
+            counter = new LinkedHashMap<>();
             for (int i = 0; i < 100; i++) counter.put(i, 0);
         }
 
