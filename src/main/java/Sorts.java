@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Sorts {
@@ -43,7 +44,7 @@ public class Sorts {
 
         // Creates initial Counter map
         public static void prepareMap() {
-            counter = new HashMap<>();
+            counter = new LinkedHashMap<>();
             for (int i = 0; i < 100; i++) counter.put(i, 0);
         }
 
