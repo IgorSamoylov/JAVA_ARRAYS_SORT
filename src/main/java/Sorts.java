@@ -30,31 +30,37 @@ public class Sorts {
                 if (A[i] > A[i + 1]) swap(A, i, i + 1);
             }
         }
-
-    }
-
-    public static void countingSort(int[] A) {
-
-        Map<Integer, Integer> counter = new HashMap<>();
-        for (int i = 0; i < 100; i++) counter.put(i, 0);
-
-        for (int n : A) counter.put(n, counter.get(n) + 1);
-
-        int n = 0;
-        for (Map.Entry<Integer, Integer> mp : counter.entrySet()) {
-            if (mp.getValue() > 0) {
-                int value = mp.getKey();
-                for (int i = 0; i < mp.getValue(); i++) {
-                    A[n++] = value;
-                }
-            }
-        }
-
     }
 
     private static void swap(int[] A, int n1, int n2) {
         int tmp = A[n2];
         A[n2] = A[n1];
         A[n1] = tmp;
+    }
+
+    static class CountingSort {
+        private static Map<Integer, Integer> counter;
+
+        // Creates initial Counter map
+        public static void prepareMap() {
+            counter = new HashMap<>();
+            for (int i = 0; i < 100; i++) counter.put(i, 0);
+        }
+
+        public static void countingSort(int[] A) {
+
+            for (int n : A) counter.put(n, counter.get(n) + 1);
+
+            int n = 0;
+            for (Map.Entry<Integer, Integer> mp : counter.entrySet()) {
+                if (mp.getValue() > 0) {
+                    int value = mp.getKey();
+                    for (int i = 0; i < mp.getValue(); i++) {
+                        A[n++] = value;
+                    }
+                }
+            }
+
+        }
     }
 }

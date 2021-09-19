@@ -8,11 +8,13 @@ class SortsTest {
     private static int[] A;
     private static int[] sortedA;
 
+    private final int TEST_ARRAY_LENGTH = 150;
+
     @BeforeEach
     void generateArray() {
         A = java.util.stream.IntStream
                 .generate(() -> (int) (Math.random() * 100))
-                .limit(10)
+                .limit(TEST_ARRAY_LENGTH)
                 .toArray();
 
         sortedA = Arrays.copyOf(A, A.length);
@@ -25,7 +27,10 @@ class SortsTest {
     }
 
     static void tester(SortFunction sortFunction) {
+        long init = System.nanoTime();
         sortFunction.sort(A);
+        long time = System.nanoTime() - init;
+        System.out.println("Time elapsed: " + time / 1000 + "ms");
         Assertions.assertArrayEquals(A, sortedA);
     }
 
@@ -50,7 +55,8 @@ class SortsTest {
     @Test
     void testCountingSort() {
         System.out.println("Counting Sort");
-        tester(Sorts::countingSort);
+        Sorts.CountingSort.prepareMap();
+        tester(Sorts.CountingSort::countingSort);
     }
 
 
