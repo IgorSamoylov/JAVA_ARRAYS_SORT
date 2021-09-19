@@ -9,11 +9,12 @@ class SortsTest {
     private static int[] sortedA;
 
     private final int TEST_ARRAY_LENGTH = 150;
+    private final int TEST_ARRAY_VALUES_RANGE = 100;
 
     @BeforeEach
     void generateArray() {
         A = java.util.stream.IntStream
-                .generate(() -> (int) (Math.random() * 100))
+                .generate(() -> (int) (Math.random() * TEST_ARRAY_VALUES_RANGE))
                 .limit(TEST_ARRAY_LENGTH)
                 .toArray();
 
@@ -55,7 +56,7 @@ class SortsTest {
     @Test
     void testCountingSort() {
         System.out.println("Counting Sort");
-        Sorts.CountingSort2.prepare(A.length);
+        Sorts.CountingSort2.prepare(TEST_ARRAY_VALUES_RANGE);
         tester(Sorts.CountingSort2::countingSort);
     }
 
