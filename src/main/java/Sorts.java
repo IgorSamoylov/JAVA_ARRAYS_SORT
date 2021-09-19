@@ -1,8 +1,3 @@
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
-
 public class Sorts {
 
     public static void insertionSort(int[] A) {
@@ -49,7 +44,7 @@ public class Sorts {
 
         public static void countingSort(int[] A) {
 
-            for(int i : A) counter[i]++; // Index of an counter array elem = value of input array
+            for (int i : A) counter[i]++; // Index of an counter array elem = value of input array
             // Value of an counter array elem = number of a repeating elem in the input
             int n = 0;
             for (int j = 0; j < counter.length; j++)
