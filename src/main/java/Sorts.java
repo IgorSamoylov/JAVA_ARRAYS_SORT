@@ -40,29 +40,20 @@ public class Sorts {
         A[n1] = tmp;
     }
 
-    static class CountingSort {
-        private static Map<Integer, Integer> counter;
+    static class CountingSort2 {
+        private static int[] counter;
 
-        // Creates initial Counter map
-        public static void prepareMap() {
-            counter = new LinkedHashMap<>();
-            for (int i = 0; i < 100; i++) counter.put(i, 0);
+        public static void prepare(int valuesRange) {
+            counter = new int[valuesRange];
         }
 
         public static void countingSort(int[] A) {
 
-            for (int n : A) counter.put(n, counter.get(n) + 1);
+            for(int i : A) counter[i]++; // Index of counter array = value of input array
 
             int n = 0;
-            for (Map.Entry<Integer, Integer> mp : counter.entrySet()) {
-                if (mp.getValue() > 0) {
-                    int value = mp.getKey();
-                    for (int i = 0; i < mp.getValue(); i++) {
-                        A[n++] = value;
-                    }
-                }
-            }
-
+            for (int j = 0; j < counter.length; j++)
+                for (int freq = counter[j]; freq > 0; freq--) A[n++] = j;
         }
     }
 }

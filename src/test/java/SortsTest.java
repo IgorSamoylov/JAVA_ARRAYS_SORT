@@ -55,8 +55,8 @@ class SortsTest {
     @Test
     void testCountingSort() {
         System.out.println("Counting Sort");
-        Sorts.CountingSort.prepareMap();
-        tester(Sorts.CountingSort::countingSort);
+        Sorts.CountingSort2.prepare(A.length);
+        tester(Sorts.CountingSort2::countingSort);
     }
 
 
