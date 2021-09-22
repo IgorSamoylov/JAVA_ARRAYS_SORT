@@ -26,6 +26,9 @@ class SortsTest {
     interface SortFunction {
         void sort(int[] array);
     }
+    interface SortFunctionReturn {
+        int[] sort(int[] array);
+    }
 
     static void tester(SortFunction sortFunction) {
         long init = System.nanoTime();
@@ -34,6 +37,14 @@ class SortsTest {
         System.out.println("Time elapsed: " + time / 1000 + "ms");
         Assertions.assertArrayEquals(A, sortedA);
     }
+    static void testerReturn(SortFunctionReturn sortFunctionReturn) {
+        long init = System.nanoTime();
+        A = sortFunctionReturn.sort(A);
+        long time = System.nanoTime() - init;
+        System.out.println("Time elapsed: " + time / 1000 + "ms");
+        Assertions.assertArrayEquals(A, sortedA);
+    }
+
 
     @Test
     void testInsertionSort() {
@@ -48,6 +59,18 @@ class SortsTest {
     }
 
     @Test
+    void testSelectionSort2() {
+        System.out.println("Selection Sort2");
+        tester(Sorts::selectionSort2);
+    }
+
+    @Test
+    void testSelectionSort3() {
+        System.out.println("Selection Sort3");
+        testerReturn(Sorts::selectionSort3);
+    }
+
+    @Test
     void testBubbleSort() {
         System.out.println("Bubble Sort");
         tester(Sorts::bubbleSort);
@@ -58,6 +81,12 @@ class SortsTest {
         System.out.println("Counting Sort");
         Sorts.CountingSort2.prepare(TEST_ARRAY_VALUES_RANGE);
         tester(Sorts.CountingSort2::countingSort);
+    }
+
+    @Test
+    void testQuickSort() {
+        System.out.println("Quick Sort");
+        testerReturn(Sorts::quickSort);
     }
 
 

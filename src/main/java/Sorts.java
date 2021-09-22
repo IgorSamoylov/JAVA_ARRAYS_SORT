@@ -1,3 +1,8 @@
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Queue;
+import java.util.Stack;
+
 public class Sorts {
 
     public static void insertionSort(int[] A) {
@@ -19,6 +24,41 @@ public class Sorts {
             }
         }
     }
+    
+    public static void selectionSort2(int[] A) {
+
+        for(int pos = 0; pos < A.length - 1; pos++) {
+            int minValue = A[pos];
+            int minIndex = pos;
+            for (int k = pos + 1; k < A.length; k++) {
+                if (A[k] <= minValue) {minValue = A[k]; minIndex = k;}
+            }
+            //swap(A, pos, minIndex);
+            int tmp = A[pos];
+            A[pos] = minValue;
+            A[minIndex] = tmp;
+        }
+    }
+
+    // M(n * 2) version
+    public static int[] selectionSort3(int[] A) {
+
+        int[] resultArray = new int[A.length];
+        int lastMin = -1;
+        for(int pos = 0; pos < A.length; pos++) {
+            int minValue = Integer.MAX_VALUE;
+            for (int i : A) {
+                if (i > lastMin && i <= minValue) minValue = i;
+            }
+
+            resultArray[pos] = minValue;
+            lastMin = minValue;
+
+        }
+        return resultArray;
+    }
+
+
 
     public static void bubbleSort(int[] A) {
 
@@ -27,6 +67,35 @@ public class Sorts {
                 if (A[i] > A[i + 1]) swap(A, i, i + 1);
             }
         }
+    }
+
+    public static int[] quickSort(int[] A) {
+
+        if(A.length < 2) return A;
+
+        int[] lowerValues = new int[A.length]; int lowerSize = 0;
+        int[] higherValues = new int[A.length]; int higherSize = 0;
+
+        int pivotIndex = (int)(Math.random() * A.length);
+        int pivotValue = A[pivotIndex];
+
+        for(int n = 0; n < A.length; n++) {
+            if(n == pivotIndex) continue;
+            if(A[n] < pivotValue) lowerValues[lowerSize++] = A[n];
+            else higherValues[higherSize++] = A[n];
+        }
+
+        int[] lowerSort = quickSort(Arrays.copyOf(lowerValues, lowerSize));
+        int[] higherSort = quickSort(Arrays.copyOf(higherValues, higherSize));
+
+        int lowerLength = lowerSort.length;
+        int[] resultArray = new int[lowerLength + 1 + higherSort.length];
+
+        System.arraycopy(lowerSort, 0, resultArray, 0, lowerLength);
+        resultArray[lowerLength] = pivotValue;
+        System.arraycopy(higherSort, 0, resultArray,
+                lowerLength + 1, higherSort.length);
+        return resultArray;
     }
 
     private static void swap(int[] A, int n1, int n2) {
