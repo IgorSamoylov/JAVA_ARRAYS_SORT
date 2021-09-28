@@ -88,14 +88,35 @@ public class Sorts {
         int[] lowerSort = quickSort(Arrays.copyOf(lowerValues, lowerSize));
         int[] higherSort = quickSort(Arrays.copyOf(higherValues, higherSize));
 
-        int lowerLength = lowerSort.length;
-        int[] resultArray = new int[lowerLength + 1 + higherSort.length];
+        System.arraycopy(lowerSort, 0, A, 0, lowerSize);
+        A[lowerSize] = pivotValue;
+        System.arraycopy(higherSort, 0, A, lowerSize + 1, higherSize);
+        return A;
+    }
 
-        System.arraycopy(lowerSort, 0, resultArray, 0, lowerLength);
-        resultArray[lowerLength] = pivotValue;
-        System.arraycopy(higherSort, 0, resultArray,
-                lowerLength + 1, higherSort.length);
-        return resultArray;
+
+    public static int[] mergeSort(int[] A) {
+        if(A.length == 2) {
+            if(A[0] > A[1]) swap(A, 0, 1);
+            return A;
+        }
+        else if(A.length < 2) return A;
+
+        int halfSize = A.length / 2;
+        int[] leftArray = mergeSort(Arrays.copyOfRange(A, 0, halfSize));
+        int[] rightArray = mergeSort(Arrays.copyOfRange(A, halfSize, A.length));
+
+        int leftIter = 0, rightIter = 0;
+        for(int resultIter = 0; resultIter < A.length; ++resultIter) {
+            if(leftIter == leftArray.length) A[resultIter] = rightArray[rightIter++];
+            else if(rightIter == rightArray.length) A[resultIter] = leftArray[leftIter++];
+            else {
+                if (leftArray[leftIter] <= rightArray[rightIter])
+                    A[resultIter] = leftArray[leftIter++];
+                else A[resultIter] = rightArray[rightIter++];
+            }
+        }
+        return A;
     }
 
     private static void swap(int[] A, int n1, int n2) {
@@ -106,15 +127,14 @@ public class Sorts {
 
     static class CountingSort2 {
         private static int[] counter;
-
         public static void prepare(int valuesRange) {
             counter = new int[valuesRange];
         }
 
         public static void countingSort(int[] A) {
 
-            for (int i : A) counter[i]++; // Index of an counter array elem = value of input array
-            // Value of an counter array elem = number of a repeating elem in the input
+            for (int i : A) counter[i]++; // Index of an counter array item means value of the input array item
+            // Value of an counter array item = number of a repeating items in the input array
             int n = 0;
             for (int j = 0; j < counter.length; j++)
                 for (int freq = counter[j]; freq > 0; freq--) A[n++] = j;
