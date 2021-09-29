@@ -1,7 +1,5 @@
-import java.util.ArrayDeque;
+
 import java.util.Arrays;
-import java.util.Queue;
-import java.util.Stack;
 
 public class Sorts {
 
@@ -15,7 +13,7 @@ public class Sorts {
             }
         }
     }
-
+    // Selection sort with simple swaps for the items pairs
     public static void selectionSort(int[] A) {
 
         for (int pos = 0; pos < A.length - 1; pos++) {
@@ -24,23 +22,22 @@ public class Sorts {
             }
         }
     }
-    
+    // Selection sort without unnecessary swaps
     public static void selectionSort2(int[] A) {
 
         for(int pos = 0; pos < A.length - 1; pos++) {
-            int minValue = A[pos];
-            int minIndex = pos;
+            int minValue = A[pos], minIndex = pos;
             for (int k = pos + 1; k < A.length; k++) {
                 if (A[k] <= minValue) {minValue = A[k]; minIndex = k;}
             }
-            //swap(A, pos, minIndex);
+
             int tmp = A[pos];
             A[pos] = minValue;
             A[minIndex] = tmp;
         }
     }
 
-    // M(n * 2) version
+    // TODO: make M(n * 2) version
     public static int[] selectionSort3(int[] A) {
 
         int[] resultArray = new int[A.length];
@@ -57,7 +54,6 @@ public class Sorts {
         }
         return resultArray;
     }
-
 
 
     public static void bubbleSort(int[] A) {
