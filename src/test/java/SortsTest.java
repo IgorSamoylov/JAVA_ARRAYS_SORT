@@ -1,85 +1,44 @@
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicLong;
 
 
 class SortsTest {
 
+    private static final int TEST_ARRAY_LENGTH = 450;
+    private static final int TEST_ARRAY_VALUES_RANGE = 100;
     private static int[] A;
     private static int[] sortedA;
 
-    private static final int TEST_ARRAY_LENGTH = 450;
-    private static final int TEST_ARRAY_VALUES_RANGE = 100;
+   // static AtomicLong init, time;
 
-    static void generateVoidArray() {
-        A = new int[0];
-        sortedA = new int[0];
-    }
-
-    static void generateUniformArray() {
-        A = java.util.stream.IntStream
-                .generate(() -> 100)
-                .limit(TEST_ARRAY_LENGTH)
-                .toArray();
-        sortedA = Arrays.copyOf(A, A.length);
-
-    }
-
-    static void generateSimpleArray() {
-        A = new int[] {1, 2, 3, 4};
-        sortedA = new int[] {1, 2, 3, 4};
-    }
-    //@BeforeEach
-    static void generateRandomArray() {
-        A = java.util.stream.IntStream
-                .generate(() -> (int) (Math.random() * TEST_ARRAY_VALUES_RANGE))
-                .limit(TEST_ARRAY_LENGTH)
-                .toArray();
-
-        sortedA = Arrays.copyOf(A, A.length);
-        Arrays.sort(sortedA);
-    }
-
-
-    interface SortFunction {
-        void sort(int[] array);
-    }
-    interface SortFunctionReturn {
-        int[] sort(int[] array);
-    }
-
+    // Tests result array for a random generated input data
     static void tester(SortFunction sortFunction) {
-        generateRandomArray();
-        //long init = System.nanoTime();
+        Util.generateRandomArray();
+        //init = new AtomicLong(System.nanoTime());
         sortFunction.sort(A);
-        //long time = System.nanoTime() - init;
-        //System.out.println("Time elapsed: " + time / 1000 + "ms");
+        //time = new AtomicLong(System.nanoTime() - init.longValue());
+        //System.out.println("Time elapsed: " + time.longValue() / 1000 + "ms");
         Assertions.assertArrayEquals(A, sortedA);
     }
 
+    // Tests result arrays in a trivial cases
     static void trivialTester(SortFunction sortFunction) {
-        generateVoidArray();
+        Util.generateVoidArray();
         sortFunction.sort(A);
         Assertions.assertArrayEquals(A, sortedA);
 
-        generateUniformArray();
+        Util.generateUniformArray();
         sortFunction.sort(A);
         Assertions.assertArrayEquals(A, sortedA);
 
-        generateSimpleArray();
+        Util.generateSimpleArray();
         sortFunction.sort(A);
         Assertions.assertArrayEquals(A, sortedA);
     }
-
-   /* static void testerReturn(SortFunctionReturn sortFunctionReturn) {
-        generateRandomArray();
-        //long init = System.nanoTime();
-        A = sortFunctionReturn.sort(A);
-       // long time = System.nanoTime() - init;
-        //System.out.println("Time elapsed: " + time / 1000 + "ms");
-        Assertions.assertArrayEquals(A, sortedA);
-    }*/
-
 
     @Test
     void testInsertionSort() {
@@ -102,12 +61,6 @@ class SortsTest {
         tester(Sorts::selectionSort2);
     }
 
-   /* @Test
-    void testSelectionSort3() {
-        System.out.println("Selection Sort3");
-        testerReturn(Sorts::selectionSort3);
-    }*/
-
     @Test
     void testBubbleSort() {
         System.out.println("Bubble Sort");
@@ -121,6 +74,12 @@ class SortsTest {
         Sorts.CountingSort2.prepare(TEST_ARRAY_VALUES_RANGE);
         tester(Sorts.CountingSort2::countingSort);
     }
+
+   /* @Test
+    void testSelectionSort3() {
+        System.out.println("Selection Sort3");
+        testerReturn(Sorts::selectionSort3);
+    }*/
 
     @Test
     void testQuickSort() {
@@ -136,10 +95,61 @@ class SortsTest {
         tester(Sorts::mergeSort);
     }
 
-
     @AfterEach
     void printResult() {
         java.util.Arrays.stream(A).forEach(n -> System.out.print(n + " "));
         System.out.println();
     }
+
+    interface SortFunction {
+        void sort(int[] array);
+    }
+
+    static class Util {
+        static void generateVoidArray() {
+            A = new int[0];
+            sortedA = new int[0];
+        }
+
+        static void generateUniformArray() {
+            A = java.util.stream.IntStream
+                    .generate(() -> 100)
+                    .limit(TEST_ARRAY_LENGTH)
+                    .toArray();
+            sortedA = Arrays.copyOf(A, A.length);
+
+        }
+
+        static void generateSimpleArray() {
+            A = new int[]{1, 2, 3, 4};
+            sortedA = new int[]{1, 2, 3, 4};
+        }
+
+        static void generateRandomArray() {
+            A = java.util.stream.IntStream
+                    .generate(() -> (int) (Math.random() * TEST_ARRAY_VALUES_RANGE))
+                    .limit(TEST_ARRAY_LENGTH)
+                    .toArray();
+
+            sortedA = Arrays.copyOf(A, A.length);
+            Arrays.sort(sortedA);
+        }
+    }
 }
+
+
+
+ /*
+  interface SortFunctionReturn {
+        int[] sort(int[] array);
+    }
+
+
+ static void testerReturn(SortFunctionReturn sortFunctionReturn) {
+        generateRandomArray();
+        //long init = System.nanoTime();
+        A = sortFunctionReturn.sort(A);
+       // long time = System.nanoTime() - init;
+        //System.out.println("Time elapsed: " + time / 1000 + "ms");
+        Assertions.assertArrayEquals(A, sortedA);
+    }*/

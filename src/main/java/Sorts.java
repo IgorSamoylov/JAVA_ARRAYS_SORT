@@ -76,7 +76,8 @@ public class Sorts {
         int[] lowerValues = new int[A.length]; int lowerSize = 0;
         int[] higherValues = new int[A.length]; int higherSize = 0;
 
-        int pivotIndex = (int)(Math.random() * A.length);
+        //int pivotIndex = (int)(Math.random() * A.length);
+        int pivotIndex = A.length >> 1;
         int pivotValue = A[pivotIndex];
 
         for(int n = 0; n < A.length; n++) {
@@ -85,12 +86,12 @@ public class Sorts {
             else higherValues[higherSize++] = A[n];
         }
 
-        int[] lowerSort = quickSort(Arrays.copyOf(lowerValues, lowerSize));
-        int[] higherSort = quickSort(Arrays.copyOf(higherValues, higherSize));
+        int[] lowerSortedArr = quickSort(Arrays.copyOf(lowerValues, lowerSize));
+        int[] higherSortedArr = quickSort(Arrays.copyOf(higherValues, higherSize));
 
-        System.arraycopy(lowerSort, 0, A, 0, lowerSize);
+        System.arraycopy(lowerSortedArr, 0, A, 0, lowerSize);
         A[lowerSize] = pivotValue;
-        System.arraycopy(higherSort, 0, A, lowerSize + 1, higherSize);
+        System.arraycopy(higherSortedArr, 0, A, lowerSize + 1, higherSize);
         return A;
     }
 
@@ -106,16 +107,18 @@ public class Sorts {
         int[] leftArray = mergeSort(Arrays.copyOfRange(A, 0, halfSize));
         int[] rightArray = mergeSort(Arrays.copyOfRange(A, halfSize, A.length));
 
-        int leftIter = 0, rightIter = 0;
-        for(int resultIter = 0; resultIter < A.length; ++resultIter) {
-            if(leftIter == leftArray.length) A[resultIter] = rightArray[rightIter++];
-            else if(rightIter == rightArray.length) A[resultIter] = leftArray[leftIter++];
-            else {
+        int leftIter = 0, rightIter = 0, resultIter = 0;
+        while(leftIter < leftArray.length && rightIter < rightArray.length) {
+
                 if (leftArray[leftIter] <= rightArray[rightIter])
-                    A[resultIter] = leftArray[leftIter++];
-                else A[resultIter] = rightArray[rightIter++];
-            }
+                    A[resultIter++] = leftArray[leftIter++];
+                else A[resultIter++] = rightArray[rightIter++];
         }
+
+        while(leftIter < leftArray.length) A[resultIter++] = leftArray[leftIter++];
+
+        while(rightIter < rightArray.length) A[resultIter++] = rightArray[rightIter++];
+
         return A;
     }
 
@@ -132,12 +135,12 @@ public class Sorts {
         }
 
         public static void countingSort(int[] A) {
-
-            for (int i : A) counter[i]++; // Index of an counter array item means value of the input array item
+            // Index of an counter array item means value of the input array item
             // Value of an counter array item = number of a repeating items in the input array
+            for (int i : A) counter[i]++;
             int n = 0;
             for (int j = 0; j < counter.length; j++)
-                for (int freq = counter[j]; freq > 0; freq--) A[n++] = j;
+                for (int valAmount = counter[j]; valAmount > 0; valAmount--) A[n++] = j;
         }
     }
 }
