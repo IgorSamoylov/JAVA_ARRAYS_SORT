@@ -1,7 +1,7 @@
 
 package sortsKt
 
-        fun mergeSort(A: Array<Int>): Array<Int> {
+        fun <T : Comparable<T>> mergeSort(A: Array<T>): Array<T> {
 
             if (A.size == 2) {
                 if(A[0] > A[1]) {

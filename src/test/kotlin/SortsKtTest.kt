@@ -1,8 +1,5 @@
-import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-
-import org.junit.jupiter.api.Assertions.*
 import kotlin.random.Random
 
 internal class SortsKtTest {
@@ -18,7 +15,7 @@ internal class SortsKtTest {
     }
 
 
-    fun printArray() {
+    private fun printArray() {
         A.forEach { n -> print("$n ") }
     }
 }
