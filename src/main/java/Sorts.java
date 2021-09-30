@@ -136,7 +136,7 @@ public class Sorts {
             for (int i : A) counter[i]++;
             int n = 0;
             for (int j = 0; j < counter.length; j++)
-                for (int valAmount = counter[j]; valAmount > 0; valAmount--) A[n++] = j;
+                for (int valAmount = counter[j]; valAmount > 0; valAmount--, n++) A[n] = j;
         }
     }
 }
