@@ -1,7 +1,7 @@
 
 import java.util.Arrays;
 
-public class Sorts {
+public class BasicSorts {
 
     public static void insertionSort(int[] A) {
 
@@ -13,6 +13,7 @@ public class Sorts {
             }
         }
     }
+
     // Selection sort with simple swaps for the items pairs
     public static void selectionSort(int[] A) {
 
@@ -22,13 +23,14 @@ public class Sorts {
             }
         }
     }
+
     // Selection sort without unnecessary swaps
     public static void selectionSort2(int[] A) {
 
         for(int pos = 0; pos < A.length - 1; pos++) {
             int minValue = A[pos], minIndex = pos;
             for (int k = pos + 1; k < A.length; k++) {
-                if (A[k] <= minValue) {minValue = A[k]; minIndex = k;}
+                if (A[k] < minValue) {minValue = A[k]; minIndex = k;}
             }
 
             int tmp = A[pos];
@@ -37,47 +39,28 @@ public class Sorts {
         }
     }
 
-    // TODO: make M(n * 2) version
-    public static int[] selectionSort3(int[] A) {
-
-        int[] resultArray = new int[A.length];
-        int lastMin = -1;
-        for(int pos = 0; pos < A.length; pos++) {
-            int minValue = Integer.MAX_VALUE;
-            for (int i : A) {
-                if (i > lastMin && i <= minValue) minValue = i;
-            }
-
-            resultArray[pos] = minValue;
-            lastMin = minValue;
-
-        }
-        return resultArray;
-    }
-
-
     public static void bubbleSort(int[] A) {
 
         for (int traverse = 1; traverse < A.length; traverse++) {
+            boolean hasNotSwaps = true;
             for (int i = 0; i < A.length - traverse; i++) {
-                if (A[i] > A[i + 1]) swap(A, i, i + 1);
+                if (A[i] > A[i + 1]) {swap(A, i, i + 1); hasNotSwaps = false;}
             }
+            if(hasNotSwaps) return;
         }
     }
 
     public static int[] quickSort(int[] A) {
 
         if(A.length < 2) return A;
+        //if(A.length < 50) insertionSort(A);
 
         int[] lowerValues = new int[A.length]; int lowerSize = 0;
         int[] higherValues = new int[A.length]; int higherSize = 0;
 
-        //int pivotIndex = (int)(Math.random() * A.length);
-        int pivotIndex = A.length >> 1;
-        int pivotValue = A[pivotIndex];
+        int pivotValue = A[0];
 
-        for(int n = 0; n < A.length; n++) {
-            if(n == pivotIndex) continue;
+        for(int n = 1; n < A.length; n++) {
             if(A[n] < pivotValue) lowerValues[lowerSize++] = A[n];
             else higherValues[higherSize++] = A[n];
         }
@@ -91,6 +74,33 @@ public class Sorts {
         return A;
     }
 
+    // QuickSort optimized algorithm that filling the result array with a pivot values
+    public static int[] quickSort2(int[] A) {
+
+        if(A.length < 2) return A;
+
+        int[] lowerValues = new int[A.length]; int lowerSize = 0;
+        int[] higherValues = new int[A.length]; int higherSize = 0;
+
+        int pivotValue = A[0];
+        int pivotValueCounter = 1;
+
+        for(int n = 1; n < A.length; n++) {
+            if(A[n] < pivotValue) lowerValues[lowerSize++] = A[n];
+            else if(A[n] == pivotValue) pivotValueCounter++;
+            else higherValues[higherSize++] = A[n];
+        }
+
+        int[] lowerSortedArr = quickSort2(Arrays.copyOf(lowerValues, lowerSize));
+        int[] higherSortedArr = quickSort2(Arrays.copyOf(higherValues, higherSize));
+
+        System.arraycopy(lowerSortedArr, 0, A, 0, lowerSize);
+        Arrays.fill(A, lowerSize, lowerSize + pivotValueCounter, pivotValue);
+        System.arraycopy(higherSortedArr, 0, A, lowerSize + pivotValueCounter, higherSize);
+        return A;
+    }
+
+
 
     public static int[] mergeSort(int[] A) {
         if(A.length == 2) {
@@ -98,6 +108,7 @@ public class Sorts {
             return A;
         }
         else if(A.length < 2) return A;
+        //if(A.length < 10) {insertionSort(A); return A;}
 
         int halfSize = A.length / 2;
         int[] leftArray = mergeSort(Arrays.copyOfRange(A, 0, halfSize));

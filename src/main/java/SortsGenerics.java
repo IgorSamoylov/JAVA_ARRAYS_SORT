@@ -4,7 +4,7 @@ import java.util.List;
 import static java.util.Collections.swap;
 
 public class SortsGenerics {
-
+    // TODO: Make void method
     public static <T extends Comparable<T>> List<T> mergeSort(List<T> A) {
         int size = A.size();
         if (size == 2) {
