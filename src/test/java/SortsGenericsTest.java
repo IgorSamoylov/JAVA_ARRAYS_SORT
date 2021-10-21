@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SortsGenericsTest {
     private static List<Long> A;
     private static List<Long> orderedA;
-    private static final int ARRAY_LENGTH = 450;
+    private static final int ARRAY_LENGTH = 2000;
     private static final int ARRAY_VALUES_RANGE = 100;
     private static long init, end;
 

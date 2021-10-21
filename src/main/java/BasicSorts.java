@@ -42,11 +42,11 @@ public class BasicSorts {
     public static void bubbleSort(int[] A) {
 
         for (int traverse = 1; traverse < A.length; traverse++) {
-            boolean hasNotSwaps = true;
+            //boolean hasNotSwaps = true;
             for (int i = 0; i < A.length - traverse; i++) {
-                if (A[i] > A[i + 1]) {swap(A, i, i + 1); hasNotSwaps = false;}
+                if (A[i] > A[i + 1]) {swap(A, i, i + 1);}// hasNotSwaps = false;}
             }
-            if(hasNotSwaps) return;
+            //if(hasNotSwaps) return;
         }
     }
 

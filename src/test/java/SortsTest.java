@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 class SortsTest {
 
-    private static final int TEST_ARRAY_LENGTH = 5000;
+    private static final int TEST_ARRAY_LENGTH = 2000;
     private static final int TEST_ARRAY_VALUES_RANGE = 100;
     private static int[] A;
     private static int[] sortedA;
@@ -19,7 +19,7 @@ class SortsTest {
         init = System.nanoTime();
         sortFunction.sort(A);
         end = System.nanoTime();
-        String timeResult = String.format("%1$1s", ((end - init) / 1000));
+        long timeResult = (end - init) / 1000;
         System.out.println("Time elapsed: " + timeResult + " mks");
         Assertions.assertArrayEquals(A, sortedA);
     }
