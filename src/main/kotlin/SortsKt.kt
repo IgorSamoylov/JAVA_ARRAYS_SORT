@@ -61,7 +61,8 @@ fun mergeSortInt(A: Array<Int>): Array<Int> {
     return A
 }
 
-// Iterative version of MergeSort Algorithm for Generics Array that using M(2 * n) of memory
+// Iterative version of O(N)=N*log(N) MergeSort Algorithm
+// for Generics Array that using M(2*N) of memory
 fun <T :Comparable<T>> mergeSortItT(A: Array<T>) {
     val buffer = A.copyOf()
     var m = 1

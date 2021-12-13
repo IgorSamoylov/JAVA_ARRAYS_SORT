@@ -5,26 +5,26 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 class SortsTest {
+    private SortsTest() {} // Do not instantiate this
 
     private static final int TEST_ARRAY_LENGTH = 2000;
     private static final int TEST_ARRAY_VALUES_RANGE = 100;
+    static Long init, end;
     private static int[] A;
     private static int[] sortedA;
 
-    static Long init, end;
-
-    // Tests result array for a random generated input data
+    // Tests the result array for a random generated input data
     static void tester(SortFunction sortFunction) {
         Util.generateRandomArray();
         init = System.nanoTime();
         sortFunction.sort(A);
         end = System.nanoTime();
         long timeResult = (end - init) / 1000;
-        System.out.println("Time elapsed: " + timeResult + " mks");
+        System.out.println("Time elapsed: " + timeResult + " mks\n");
         Assertions.assertArrayEquals(A, sortedA);
     }
 
-    // Tests result arrays in a trivial cases
+    // Tests the result arrays in a trivial cases
     static void trivialTester(SortFunction sortFunction) {
         Util.generateVoidArray();
         sortFunction.sort(A);
@@ -70,8 +70,8 @@ class SortsTest {
     @Test
     void testCountingSort() {
         System.out.println("Counting Sort");
-        BasicSorts.CountingSort2.prepare(TEST_ARRAY_VALUES_RANGE);
-        tester(BasicSorts.CountingSort2::countingSort);
+        CountingSort.prepare(TEST_ARRAY_VALUES_RANGE);
+        tester(CountingSort::countingSort);
     }
 
     @Test
@@ -106,10 +106,6 @@ class SortsTest {
     void printResult() {
         java.util.Arrays.stream(A).forEach(n -> System.out.print(n + " "));
         System.out.println();
-    }
-
-    interface SortFunction {
-        void sort(int[] array);
     }
 
     static class Util {

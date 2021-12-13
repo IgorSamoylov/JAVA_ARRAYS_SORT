@@ -1,8 +1,13 @@
 import java.util.Arrays;
 
+/*
+    *
+    *  Class contains iterative sorts which used M(N) = const*N of memory.
+    *
+*/
 public class IterativeFastSorts {
 
-    // Iterative implementation for MergeSort algorithm, which used M(2*n) of memory
+    // Iterative implementation for O(N)=N*log(N) MergeSort algorithm, which used M(2*N) of memory
     public static void mergeSort(int[] A) {
         int size = A.length;
         int[] buffer = new int[size];
@@ -16,19 +21,23 @@ public class IterativeFastSorts {
 
                 int middle = i + step; // = 1, 3, 5... = 2, 6, 10... = 4, 12, 20...
                 int leftIter = i, rightIter = middle, end = middle + step;
-                while(leftIter < middle && rightIter < end && rightIter < size) { // Merging
+
+                // Merging
+                while(leftIter < middle && rightIter < end && rightIter < size) {
                     if(A[leftIter] <= A[rightIter]) buffer[bufIter++] = A[leftIter++];
                     else buffer[bufIter++] = A[rightIter++];
                 }
-                while(leftIter < middle && leftIter < size) buffer[bufIter++] = A[leftIter++]; // Appending left or right tails
+                // Appending left or right tails
+                while(leftIter < middle && leftIter < size) buffer[bufIter++] = A[leftIter++];
                 while(rightIter < end && rightIter < size) buffer[bufIter++] = A[rightIter++];
             }
-            System.arraycopy(buffer, 0, A, 0, size); // Drop buffer array to the source array on an each traversal
+            // Drop buffer array to the source array on an each traversal
+            System.arraycopy(buffer, 0, A, 0, size);
         }
     }
 
 
-
+// Just simple testing method
     public static void main(String[] args) {
         int[] A = {6, 7, 4, 3, 2, 1, 5, 0, 9, 17};
         mergeSort(A);

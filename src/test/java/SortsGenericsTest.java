@@ -29,7 +29,7 @@ class SortsGenericsTest {
         printArray(A);
     }
 
-    static class Util {
+    private static class Util {
         static void createRandomArray() {
             A = LongStream.generate(() -> (long) (Math.random() * ARRAY_VALUES_RANGE))
                     .limit(ARRAY_LENGTH).boxed().collect(Collectors.toList());
