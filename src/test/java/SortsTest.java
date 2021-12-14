@@ -1,7 +1,7 @@
 import java_array_sorts.BasicSorts;
 import java_array_sorts.CountingSort;
 import java_array_sorts.IterativeFastSorts;
-import java_array_sorts.SortFunction;
+import java_array_sorts.SortMethod;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -19,10 +19,10 @@ class SortsTest {
     private static int[] sortedA;
 
     // Tests the result array for a random generated input data
-    static void tester(@NotNull SortFunction sortFunction) {
+    static void tester(@NotNull SortMethod sortMethod) {
         Util.generateRandomArray();
         init = System.nanoTime();
-        sortFunction.sort(A);
+        sortMethod.sort(A);
         end = System.nanoTime();
         long timeResult = (end - init) / 1000;
         System.out.println("Time elapsed: " + timeResult + " mks");
@@ -30,17 +30,17 @@ class SortsTest {
     }
 
     // Tests the result arrays in a trivial cases
-    static void trivialTester(@NotNull SortFunction sortFunction) {
+    static void trivialTester(@NotNull SortMethod sortMethod) {
         Util.generateVoidArray();
-        sortFunction.sort(A);
+        sortMethod.sort(A);
         Assertions.assertArrayEquals(A, sortedA);
 
         Util.generateUniformArray();
-        sortFunction.sort(A);
+        sortMethod.sort(A);
         Assertions.assertArrayEquals(A, sortedA);
 
         Util.generateSimpleArray();
-        sortFunction.sort(A);
+        sortMethod.sort(A);
         Assertions.assertArrayEquals(A, sortedA);
     }
 

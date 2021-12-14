@@ -1,5 +1,5 @@
 package java_array_sorts;
 
-public interface SortFunction {
+public interface SortMethod {
     void sort(int[] array);
 }
