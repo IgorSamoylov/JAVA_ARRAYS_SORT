@@ -1,13 +1,15 @@
+package java_array_sorts;
+
 import java.util.Arrays;
 
 /*
     *
-    *  Class contains iterative sorts which used M(N) = const*N of memory.
+    *  Class contains iterative O(N) = N*log(N) sorts which used M(N) = const*N of memory.
     *
 */
 public class IterativeFastSorts {
 
-    // Iterative implementation for O(N)=N*log(N) MergeSort algorithm, which used M(2*N) of memory
+    // Iterative implementation MergeSort algorithm, which used M(2*N) of memory
     public static void mergeSort(int[] A) {
         int size = A.length;
         int[] buffer = new int[size];
