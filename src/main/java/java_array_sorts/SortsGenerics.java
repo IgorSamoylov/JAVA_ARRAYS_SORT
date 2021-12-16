@@ -6,8 +6,7 @@ import java.util.List;
 import static java.util.Collections.swap;
 
 public final class SortsGenerics {
-    private SortsGenerics() {
-    } // Do not instantiate this
+    private SortsGenerics() { } // Do not instantiate this
 
     public static <T extends Comparable<T>> List<T> mergeSort(final List<T> A) {
         int size = A.size();
@@ -80,13 +79,20 @@ public final class SortsGenerics {
                 while (rightIter < end && rightIter < size)
                     buffer[bufIter++] = array[rightIter++];
             }
-            // Drop buffer array to the source array on an each traversal
+            // Drop buffer array to the first array on an each traversal
             System.arraycopy(buffer, 0, array, 0, size);
         }
 
+        // Set values to source generics List
         for (int i = 0; i < size; ++i) {
             sourceList.set(i, (T) array[i]);
         }
+
+    }
+
+    public static <T extends Comparable<T>> void quickSortIterative(List<T> inputList) {
+
+        Object[] A = inputList.toArray();
 
     }
 }

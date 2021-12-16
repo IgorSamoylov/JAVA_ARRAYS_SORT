@@ -1,7 +1,4 @@
-import java_array_sorts.BasicSorts;
-import java_array_sorts.CountingSort;
-import java_array_sorts.IterativeFastSorts;
-import java_array_sorts.SortMethod;
+import java_array_sorts.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -82,29 +79,29 @@ class SortsTest {
     @Test
     void testQuickSort() {
         System.out.println("\nQuick Sort");
-        trivialTester(BasicSorts::quickSort);
-        tester(BasicSorts::quickSort);
+        trivialTester(FastSorts::quickSort);
+        tester(FastSorts::quickSort);
     }
 
     @Test
     void testQuickSort2() {
         System.out.println("\nQuick Sort 2");
-        trivialTester(BasicSorts::quickSort2);
-        tester(BasicSorts::quickSort2);
+        trivialTester(FastSorts::quickSort2);
+        tester(FastSorts::quickSort2);
     }
 
     @Test
     void testMergeSort() {
         System.out.println("\nMerge Sort");
-        trivialTester(BasicSorts::mergeSort);
-        tester(BasicSorts::mergeSort);
+        trivialTester(FastSorts::mergeSort);
+        tester(FastSorts::mergeSort);
     }
 
     @Test
     void testIterativeMergeSort() {
         System.out.println("\nIterative Merge Sort");
-        trivialTester(IterativeFastSorts::mergeSort);
-        tester(IterativeFastSorts::mergeSort);
+        trivialTester(IterativeFastSorts::mergeSortIterative);
+        tester(IterativeFastSorts::mergeSortIterative);
     }
 
     @AfterEach

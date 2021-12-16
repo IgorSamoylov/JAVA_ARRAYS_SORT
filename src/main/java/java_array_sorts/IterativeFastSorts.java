@@ -1,5 +1,7 @@
 package java_array_sorts;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 
 /*
@@ -10,7 +12,7 @@ import java.util.Arrays;
 public class IterativeFastSorts {
 
     // Iterative implementation MergeSort algorithm, which used M(2*N) of memory
-    public static void mergeSort(int[] A) {
+    public static void mergeSortIterative(@NotNull int[] A) {
         int size = A.length;
         int[] buffer = new int[size];
 
@@ -37,12 +39,26 @@ public class IterativeFastSorts {
             System.arraycopy(buffer, 0, A, 0, size);
         }
     }
+/*
+    public static void quickSortIterative(@NotNull int[] A) {
+
+        int length = A.length;
+        int[] borders = new int[length];
+        int[] counters = new int[length];
+
+        for(int i = 0; i < A.length; ++i) {
+
+        }
+
+    }
+
+ */
 
 
 // Just simple testing method
     public static void main(String[] args) {
         int[] A = {6, 7, 4, 3, 2, 1, 5, 0, 9, 17};
-        mergeSort(A);
+        mergeSortIterative(A);
         System.out.println(Arrays.toString(A));
     }
 }

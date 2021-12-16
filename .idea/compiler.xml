@@ -9,6 +9,6 @@
         <module name="JAVA_ARRAYS_SORT" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="15" />
+    <bytecodeTargetLevel target="16" />
   </component>
 </project>
