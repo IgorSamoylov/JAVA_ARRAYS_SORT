@@ -12,14 +12,6 @@ import java.util.Random;
 public class FastSorts {
     private FastSorts() { } // Do not instantiate this
 
-    // Nested class-wrapper to prevent numerous instantiations of java.util.Random class
-    private static class RandomGenerator {
-        private static final Random random = new Random();
-        public static int getRandomInt(int bound) {
-            return random.nextInt(bound);
-        }
-    }
-
     public static int[] quickSort(final int[] A) {
 
         int length = A.length;
@@ -34,7 +26,7 @@ public class FastSorts {
         int[] higherValues = new int[A.length];
         int higherSize = 0;
 
-        int pivotIndex = RandomGenerator.getRandomInt(length - 1);
+        int pivotIndex = (int) (Math.random() * length);
         int pivotValue = A[pivotIndex];
 
         for (int n = 0; n < length; n++) {
@@ -65,7 +57,7 @@ public class FastSorts {
         int[] higherValues = new int[length];
         int higherSize = 0;
 
-        int pivotIndex = RandomGenerator.getRandomInt(length - 1);
+        int pivotIndex = (int) (Math.random() * length);
         int pivotValue = A[pivotIndex];
         int pivotValueCounter = 1;
 
