@@ -9,13 +9,6 @@ import java.util.Arrays;
  */
 
 public final class FastSorts {
-    // Lambda that swaps items by index x and y in the gotten array.
-    private static final Swapper swapper = (array, x, y) -> {
-        int tmp = array[x];
-        array[x] = array[y];
-        array[y] = tmp;
-    };
-
     private FastSorts() {
     } // Do not instantiate this
 
@@ -57,7 +50,7 @@ public final class FastSorts {
     }
 
     /*
-     * QuickSort optimized algorithm that filling the
+     * Recursive QuickSort optimized algorithm that filling the
      * result array with the pivot values
      * */
     public static int[] quickSort2(final int[] arr) {
@@ -100,7 +93,7 @@ public final class FastSorts {
         if (arr.length == 2) {
             // Swap values if array has 2 items at incorrect order
             if (arr[0] > arr[1]) {
-                swapper.swap(arr, 0, 1);
+                swap(arr, 0, 1);
             }
             return arr;
         } else if (arr.length < 2) return arr;
@@ -135,61 +128,51 @@ public final class FastSorts {
     }
 
     /*
-     * Implementation of HeapSort for an integer array
-     * that used lambda recursive calls without
-     * extern methods calls.
+     * Implementation of HeapSort for presented integer array
+     * with calls for makeHeap() method
      * */
     public static void heapSort(final int[] arr) {
-
-        HeapMakerRecursive heapMakerRec
-                = (heapMaker, firstIndex, length) -> {
-            int currentLargest = firstIndex;
-            int leftChild = 2 * firstIndex + 1;
-            int rightChild = 2 * firstIndex + 2;
-
-            if (leftChild < length && arr[leftChild] > arr[currentLargest])
-                currentLargest = leftChild;
-            if (rightChild < length && arr[rightChild] > arr[currentLargest])
-                currentLargest = rightChild;
-
-            if (currentLargest != firstIndex) {
-                swapper.swap(arr, currentLargest, firstIndex);
-                // Recursive inner call that
-                // make heap in a remaining array range
-                // right to left with this new value
-                heapMaker.heapMake(currentLargest, length);
-            }
-        };
         // Making basic heap, starting at the half or array
         // and moving right to left
         for (int i = arr.length / 2 - 1; i > -1; --i) {
-            heapMakerRec.heapMake(i, arr.length);
+            makeHeap(arr, i, arr.length);
         }
         // Receiving top items from [0] index and swap it one-by-one
-        // to the end of array, than create a new more shortest heap
+        // to the end of array, than create a new more shortest range
+        // heap in array
         for (int i = arr.length - 1; i > 0; --i) {
-            swapper.swap(arr, 0, i);
-            heapMakerRec.heapMake(0, i);
-        }
-
-    }
-
-    @FunctionalInterface
-    interface HeapMaker {
-        void heapMake(int firstIndex, int length);
-    }
-
-    @FunctionalInterface
-    interface HeapMakerRecursive extends HeapMaker {
-        void heapMake(HeapMaker hm, int firstIndex, int length);
-
-        default void heapMake(int firstIndex, int length) {
-            heapMake(this, firstIndex, length);
+            swap(arr, 0, i);
+            makeHeap(arr, 0, i);
         }
     }
 
-    @FunctionalInterface
-    interface Swapper {
-        void swap(int[] arr, int x, int y);
+    /* Makes heap structure in the presented integer array arr,
+     * firstIndex means first item to proceed making heap,
+     * processingLength means last index in array that not be proceeded.
+     * */
+    private static void makeHeap(int[] arr, int firstIndex, int processingLength) {
+        int currentLargest = firstIndex;
+        int leftChild = 2 * firstIndex + 1;
+        int rightChild = 2 * firstIndex + 2;
+
+        if (leftChild < processingLength && arr[leftChild] > arr[currentLargest])
+            currentLargest = leftChild;
+        if (rightChild < processingLength && arr[rightChild] > arr[currentLargest])
+            currentLargest = rightChild;
+
+        if (currentLargest != firstIndex) {
+            swap(arr, currentLargest, firstIndex);
+            // Recursive inner call that
+            // make heap in a remaining array range
+            // right to left with this new value
+            makeHeap(arr, currentLargest, processingLength);
+        }
+    }
+
+    // Auxiliary method that swaps items by index x and y in the gotten array.
+    private static void swap(int[] array, int x, int y) {
+        int tmp = array[x];
+        array[x] = array[y];
+        array[y] = tmp;
     }
 }

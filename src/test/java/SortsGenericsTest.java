@@ -1,3 +1,5 @@
+import com.example.java_array_sorts.GenericsArraySorter;
+import com.example.java_array_sorts.GenericsArraySorterReturn;
 import com.example.java_array_sorts.SortsGenerics;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
@@ -10,39 +12,57 @@ import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 class SortsGenericsTest {
-    private static final int ARRAY_LENGTH = 1000;
+    private static final int ARRAY_LENGTH = 400;
     private static final int ARRAY_VALUES_RANGE = 100;
     private static List<Long> A;
     private static List<Long> orderedA;
     private static long init, end;
 
-    static void printArray(@NotNull List<?> array) {
+    private static void printArray(@NotNull List<?> array) {
 
         array.forEach(n -> System.out.print(n + " "));
     }
 
-    @Test
-    void mergeSortTest() {
+    private static void tester(
+            GenericsArraySorter genericsArraySorter, String name) {
         Util.createRandomArray();
         init = System.nanoTime();
-        A = SortsGenerics.mergeSort(A);
+        genericsArraySorter.sort(A);
         end = System.nanoTime();
-        System.out.println("\nGenerics Array Merge Sort\n" +
+        System.out.println("\n\n" + name + "\n" +
+                "Time elapsed: " + ((end - init) / 1000) + " mks");
+        Assertions.assertIterableEquals(A, orderedA);
+        printArray(A);
+    }
+
+    private static void testerReturn(
+            GenericsArraySorterReturn gasr, String name) {
+        Util.createRandomArray();
+        init = System.nanoTime();
+        A = gasr.sort(A);
+        end = System.nanoTime();
+        System.out.println("\n\n" + name + "\n" +
                 "Time elapsed: " + ((end - init) / 1000) + " mks");
         Assertions.assertIterableEquals(A, orderedA);
         printArray(A);
     }
 
     @Test
+    void mergeSortTest() {
+        testerReturn(SortsGenerics::mergeSort,
+                "Generics Array Merge Sort");
+    }
+
+    @Test
     void mergeSortIterativeTest() {
-        Util.createRandomArray();
-        init = System.nanoTime();
-        SortsGenerics.mergeSortIterative(A);
-        end = System.nanoTime();
-        System.out.println("\nGenerics Array Iterative Merge Sort\n" +
-                "Time elapsed: " + ((end - init) / 1000) + " mks");
-        Assertions.assertIterableEquals(A, orderedA);
-        printArray(A);
+        tester(SortsGenerics::mergeSortIterative,
+                "Generics Array Iterative Merge Sort");
+    }
+
+    @Test
+    void heapSortTest() {
+        tester(SortsGenerics::heapSort,
+                "Generics Array Heap Sort");
     }
 
     private static class Util {

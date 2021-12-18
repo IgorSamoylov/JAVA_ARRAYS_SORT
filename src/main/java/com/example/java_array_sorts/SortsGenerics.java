@@ -95,4 +95,53 @@ public final class SortsGenerics {
         Object[] A = inputList.toArray();
 
     }
+
+    /*
+     * Implementation of HeapSort for presented Generic List
+     * with calls for makeHeap() method
+     * */
+    public static <T extends Comparable<T>> void heapSort(
+            final List<T> arr) {
+        int size = arr.size();
+        // Making basic heap, starting at the half or array
+        // and moving right to left
+        for (int i = size / 2 - 1; i > -1; --i) {
+            makeHeap(arr, i, size);
+        }
+        // Receiving top items from [0] index and swap it one-by-one
+        // to the end of array, than create a new more shortest range
+        // heap in array
+        for (int i = size - 1; i > 0; --i) {
+            swap(arr, 0, i);
+            makeHeap(arr, 0, i);
+        }
+    }
+
+    /* Makes heap structure in the presented integer array arr,
+     * firstIndex means first item to proceed making heap,
+     * processingLength means last index in array that not be proceeded.
+     * */
+    private static <T extends Comparable<T>> void makeHeap(
+            List<T> arr, int firstIndex, int processingLength) {
+        int currentLargest = firstIndex;
+        int leftChild = 2 * firstIndex + 1;
+        int rightChild = 2 * firstIndex + 2;
+
+        if (leftChild < processingLength
+                && arr.get(leftChild).compareTo(arr.get(currentLargest)) > 0) {
+            currentLargest = leftChild;
+        }
+        if (rightChild < processingLength
+                && arr.get(rightChild).compareTo(arr.get(currentLargest)) > 0) {
+            currentLargest = rightChild;
+        }
+
+        if (currentLargest != firstIndex) {
+            swap(arr, currentLargest, firstIndex);
+            // Recursive inner call that
+            // make heap in a remaining array range
+            // right to left with this new value
+            makeHeap(arr, currentLargest, processingLength);
+        }
+    }
 }

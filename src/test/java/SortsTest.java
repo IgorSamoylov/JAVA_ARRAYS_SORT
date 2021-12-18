@@ -12,17 +12,19 @@ class SortsTest {
     static Long init, end;
     private static int[] A;
     private static int[] sortedA;
+
     private SortsTest() {
     } // Do not instantiate this
 
     // Tests the result array for a random generated input data
-    static void tester(@NotNull SortMethod sortMethod) {
+    static void tester(@NotNull SortMethod sortMethod, String name) {
         Util.generateRandomArray();
         init = System.nanoTime();
         sortMethod.sort(A);
         end = System.nanoTime();
         long timeResult = (end - init) / 1000;
-        System.out.println("Time elapsed: " + timeResult + " mks");
+        System.out.println("\n" + name + "\nTime elapsed: "
+                + timeResult + " mks");
         Assertions.assertArrayEquals(A, sortedA);
     }
 
@@ -43,72 +45,77 @@ class SortsTest {
 
     @Test
     void testInsertionSort() {
-        System.out.println("\nInsertion Sort");
         trivialTester(BasicSorts::insertionSort);
-        tester(BasicSorts::insertionSort);
+        tester(BasicSorts::insertionSort,
+                "Insertion Sort");
     }
 
     @Test
     void testSelectionSort() {
-        System.out.println("\nSelection Sort");
         trivialTester(BasicSorts::selectionSort);
-        tester(BasicSorts::selectionSort);
+        tester(BasicSorts::selectionSort,
+                "Selection Sort");
     }
 
     @Test
     void testSelectionSort2() {
-        System.out.println("\nSelection Sort 2");
         trivialTester(BasicSorts::selectionSort2);
-        tester(BasicSorts::selectionSort2);
+        tester(BasicSorts::selectionSort2,
+                "Selection Sort 2");
     }
 
     @Test
     void testBubbleSort() {
-        System.out.println("\nBubble Sort");
         trivialTester(BasicSorts::bubbleSort);
-        tester(BasicSorts::bubbleSort);
+        tester(BasicSorts::bubbleSort,
+                "Bubble Sort");
     }
 
     @Test
     void testCountingSort() {
-        System.out.println("\nCounting Sort");
         CountingSort.prepare(TEST_ARRAY_VALUES_RANGE);
-        tester(CountingSort::countingSort);
+        tester(CountingSort::countingSort,
+                "Counting Sort");
     }
 
     @Test
     void testQuickSort() {
-        System.out.println("\nQuick Sort");
         trivialTester(FastSorts::quickSort);
-        tester(FastSorts::quickSort);
+        tester(FastSorts::quickSort, "Quick Sort");
     }
 
     @Test
     void testQuickSort2() {
-        System.out.println("\nQuick Sort 2");
         trivialTester(FastSorts::quickSort2);
-        tester(FastSorts::quickSort2);
+        tester(FastSorts::quickSort2,
+                "\nQuick Sort 2");
     }
 
     @Test
     void testMergeSort() {
-        System.out.println("\nMerge Sort");
         trivialTester(FastSorts::mergeSort);
-        tester(FastSorts::mergeSort);
+        tester(FastSorts::mergeSort,
+                "\nMerge Sort");
     }
 
     @Test
     void testHeapSort() {
-        System.out.println("\nHeap Sort");
         trivialTester(FastSorts::heapSort);
-        tester(FastSorts::heapSort);
+        tester(FastSorts::heapSort, "Heap Sort");
+    }
+
+    @Test
+    void testHeapSort2() {
+        trivialTester(FastSortsExperimental::heapSortL);
+        tester(FastSortsExperimental::heapSortL,
+                "Heap Sort on Lambdas");
     }
 
     @Test
     void testIterativeMergeSort() {
-        System.out.println("\nIterative Merge Sort");
         trivialTester(IterativeFastSorts::mergeSortIterative);
-        tester(IterativeFastSorts::mergeSortIterative);
+        tester(IterativeFastSorts::mergeSortIterative,
+                "Iterative Merge Sort");
     }
 
     @AfterEach
