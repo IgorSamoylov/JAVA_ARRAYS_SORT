@@ -1,6 +1,4 @@
-package java_array_sorts;
-
-import java.util.Arrays;
+package com.example.java_array_sorts;
 
 /*
  *  Class contains simple O(N) = N^2 quadratic complexity algorithms

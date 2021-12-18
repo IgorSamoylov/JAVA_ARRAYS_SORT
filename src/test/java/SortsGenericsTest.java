@@ -1,4 +1,4 @@
-import java_array_sorts.SortsGenerics;
+import com.example.java_array_sorts.SortsGenerics;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

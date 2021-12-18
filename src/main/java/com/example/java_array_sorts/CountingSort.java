@@ -1,4 +1,4 @@
-package java_array_sorts;
+package com.example.java_array_sorts;
 
 /*
      * The fastest possible sort that O(N) = const*N

@@ -1,4 +1,4 @@
-import java_array_sorts.*;
+import com.example.java_array_sorts.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 class SortsTest {
-    private SortsTest() {} // Do not instantiate this
-
-    private static final int TEST_ARRAY_LENGTH = 1000;
+    private static final int TEST_ARRAY_LENGTH = 400;
     private static final int TEST_ARRAY_VALUES_RANGE = 100;
     static Long init, end;
     private static int[] A;
     private static int[] sortedA;
+    private SortsTest() {
+    } // Do not instantiate this
 
     // Tests the result array for a random generated input data
     static void tester(@NotNull SortMethod sortMethod) {
@@ -95,6 +95,13 @@ class SortsTest {
         System.out.println("\nMerge Sort");
         trivialTester(FastSorts::mergeSort);
         tester(FastSorts::mergeSort);
+    }
+
+    @Test
+    void testHeapSort() {
+        System.out.println("\nHeap Sort");
+        trivialTester(FastSorts::heapSort);
+        tester(FastSorts::heapSort);
     }
 
     @Test

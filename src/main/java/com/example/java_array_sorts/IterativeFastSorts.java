@@ -1,4 +1,4 @@
-package java_array_sorts;
+package com.example.java_array_sorts;
 
 import org.jetbrains.annotations.NotNull;
 

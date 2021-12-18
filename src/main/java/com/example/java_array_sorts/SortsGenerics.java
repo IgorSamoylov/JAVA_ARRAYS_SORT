@@ -1,4 +1,4 @@
-package java_array_sorts;
+package com.example.java_array_sorts;
 
 import java.util.ArrayList;
 import java.util.List;
