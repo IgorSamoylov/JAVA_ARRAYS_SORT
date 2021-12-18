@@ -24,7 +24,7 @@ class SortsGenericsTest {
     }
 
     private static void tester(
-            GenericsArraySorter genericsArraySorter, String name) {
+            @NotNull GenericsArraySorter genericsArraySorter, String name) {
         Util.createRandomArray();
         init = System.nanoTime();
         genericsArraySorter.sort(A);
@@ -36,7 +36,7 @@ class SortsGenericsTest {
     }
 
     private static void testerReturn(
-            GenericsArraySorterReturn gasr, String name) {
+            @NotNull GenericsArraySorterReturn gasr, String name) {
         Util.createRandomArray();
         init = System.nanoTime();
         A = gasr.sort(A);
@@ -51,6 +51,12 @@ class SortsGenericsTest {
     void mergeSortTest() {
         testerReturn(SortsGenerics::mergeSort,
                 "Generics Array Merge Sort");
+    }
+
+    @Test
+    void mergeSort2Test() {
+        tester(SortsGenerics::mergeSort2,
+                "Merge Sort for Generics with conversion to Object array");
     }
 
     @Test

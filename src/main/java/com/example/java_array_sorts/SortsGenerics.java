@@ -1,6 +1,7 @@
 package com.example.java_array_sorts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static java.util.Collections.swap;
@@ -8,6 +9,10 @@ import static java.util.Collections.swap;
 public final class SortsGenerics {
     private SortsGenerics() { } // Do not instantiate this
 
+    /*
+    * Recursive implementation of Merge Sort, works with Comparable<T> generics
+    * list. Returns result in the other List,
+    * */
     public static <T extends Comparable<T>> List<T> mergeSort(final List<T> A) {
         int size = A.size();
         // Recursion end
@@ -43,6 +48,65 @@ public final class SortsGenerics {
             resultArr.add(rightArray.get(rightIter++));
 
         return resultArr;
+    }
+
+    /*
+    *  Function - adapter that converts List<Comparable <<T> to
+    * primitive Object T[] array for mergeSortC recursive function
+    * and receive the result T[] array from it with back conversion.
+    * Works faster that the function with simple List operations only.
+    * */
+    @SuppressWarnings("unchecked")
+    public static <T extends Comparable<T>> void mergeSort2(final List<T> A) {
+        Object[] objectArray = new Object[A.size()];
+        for (int i = 0; i < A.size(); ++i) {
+            objectArray[i] = A.get(i);
+        }
+        objectArray = mergeSortC(objectArray);
+        for (int i = 0; i < objectArray.length; ++i) {
+            A.set(i, (T) objectArray[i]);
+        }
+    }
+
+    /*
+     *  Recursive implementation of Merge sort
+     * */
+    @SuppressWarnings("unchecked")
+    public static <T extends Comparable <T>> Object[] mergeSortC(final Object[] arr) {
+        if (arr.length == 2) {
+            // Swap values if array has 2 items at incorrect order
+            if (((Comparable<T>)(arr[0])).compareTo((T)(arr[1])) > 0) {
+                Object tmp = arr[1];
+                arr[1] = arr[0];
+                arr[0] = tmp;
+            }
+            return arr;
+        } else if (arr.length < 2) return arr;
+
+        int halfSize = arr.length / 2;
+        Object[] leftArray = mergeSortC(
+                Arrays.copyOfRange(arr, 0, halfSize));
+        Object[] rightArray = mergeSortC(
+                Arrays.copyOfRange(arr, halfSize, arr.length));
+
+        int leftIter = 0;
+        int rightIter = 0;
+        int resultIter = 0;
+        while (leftIter < leftArray.length && rightIter < rightArray.length) {
+
+            if (((Comparable<T>)leftArray[leftIter])
+                    .compareTo((T)rightArray[rightIter]) <= 0)
+                arr[resultIter++] = leftArray[leftIter++];
+            else arr[resultIter++] = rightArray[rightIter++];
+        }
+
+        while (leftIter < leftArray.length)
+            arr[resultIter++] = leftArray[leftIter++];
+
+        while (rightIter < rightArray.length)
+            arr[resultIter++] = rightArray[rightIter++];
+
+        return arr;
     }
 
     /* Iterative implementation for O(N)=N*log(N) MergeSort algorithm,
