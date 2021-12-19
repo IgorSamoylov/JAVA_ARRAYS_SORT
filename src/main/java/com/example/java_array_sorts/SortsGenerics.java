@@ -69,10 +69,11 @@ public final class SortsGenerics {
     }
 
     /*
-     *  Recursive implementation of Merge sort
+     *  Private recursive implementation of Merge sort for primitive Object array
+     *  contains objects that implements Comparable interface
      * */
     @SuppressWarnings("unchecked")
-    public static <T extends Comparable <T>> Object[] mergeSortC(final Object[] arr) {
+    private static <T extends Comparable <T>> Object[] mergeSortC(final Object[] arr) {
         if (arr.length == 2) {
             // Swap values if array has 2 items at incorrect order
             if (((Comparable<T>)(arr[0])).compareTo((T)(arr[1])) > 0) {
