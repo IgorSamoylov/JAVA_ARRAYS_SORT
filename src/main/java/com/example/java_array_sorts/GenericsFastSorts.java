@@ -6,8 +6,8 @@ import java.util.List;
 
 import static java.util.Collections.swap;
 
-public final class SortsGenerics {
-    private SortsGenerics() { } // Do not instantiate this
+public final class GenericsFastSorts {
+    private GenericsFastSorts() { } // Do not instantiate this
 
     /*
     * Recursive implementation of Merge Sort, works with Comparable<T> generics
@@ -51,7 +51,7 @@ public final class SortsGenerics {
     }
 
     /*
-    *  Function - adapter that converts List<Comparable <<T> to
+    *  Method - adapter that converts List<Comparable <<T> to
     * primitive Object T[] array for mergeSortC recursive function
     * and receive the result T[] array from it with back conversion.
     * Works faster that the function with simple List operations only.
@@ -70,7 +70,7 @@ public final class SortsGenerics {
 
     /*
      *  Private recursive implementation of Merge sort for primitive Object array
-     *  contains objects that implements Comparable interface
+     *  contains objects that implement Comparable interface
      * */
     @SuppressWarnings("unchecked")
     private static <T extends Comparable <T>> Object[] mergeSortC(final Object[] arr) {
@@ -111,7 +111,7 @@ public final class SortsGenerics {
     }
 
     /* Iterative implementation for O(N)=N*log(N) MergeSort algorithm,
-     * which used M(3*N) of memory
+     * which used O(3*N) of memory
      * Used two primitive Object arrays as fast inner containers of generics type objects.
      */
     @SuppressWarnings("unchecked")

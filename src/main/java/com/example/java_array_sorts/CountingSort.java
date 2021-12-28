@@ -2,7 +2,7 @@ package com.example.java_array_sorts;
 
 /*
      * The fastest possible sort that O(N) = const*N
-     * and used memory less then M(N) = N
+     * and used memory O(M)
 */
 public final class CountingSort {
     private CountingSort() {

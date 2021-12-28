@@ -1,7 +1,4 @@
-import com.example.java_array_sorts.ComparableClass;
-import com.example.java_array_sorts.GenericsArraySorter;
-import com.example.java_array_sorts.GenericsArraySorterReturn;
-import com.example.java_array_sorts.SortsGenerics;
+import com.example.java_array_sorts.*;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +8,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-class SortsGenericsTest {
+class GenericsFastSortsTest {
     private static final int ARRAY_LENGTH = 400;
     private static final int ARRAY_VALUES_RANGE = 100;
     private static final List<Integer> orderedIntegerList = new ArrayList<>();
@@ -81,35 +78,44 @@ class SortsGenericsTest {
 
     @Test
     void mergeSortTest() {
-        testerReturn(SortsGenerics::mergeSort,
+        testerReturn(GenericsFastSorts::mergeSort,
                 "Generics Array Merge Sort");
     }
 
     @Test
     void mergeSort2Test() {
-        trivialTester(SortsGenerics::mergeSort2);
-        tester(SortsGenerics::mergeSort2,
+        trivialTester(GenericsFastSorts::mergeSort2);
+        tester(GenericsFastSorts::mergeSort2,
                 "Merge Sort for Generics with conversion to Object array");
-        testerObjectArray(SortsGenerics::mergeSort2,
+        testerObjectArray(GenericsFastSorts::mergeSort2,
                 "Merge Sort for Generics with conversion to Object array");
     }
 
     @Test
     void mergeSortIterativeTest() {
-        trivialTester(SortsGenerics::mergeSortIterative);
-        tester(SortsGenerics::mergeSortIterative,
+        trivialTester(GenericsFastSorts::mergeSortIterative);
+        tester(GenericsFastSorts::mergeSortIterative,
                 "Generics Array Iterative Merge Sort");
-        testerObjectArray(SortsGenerics::mergeSortIterative,
+        testerObjectArray(GenericsFastSorts::mergeSortIterative,
                 "Generics Array Iterative Merge Sort");
     }
 
     @Test
     void heapSortTest() {
-        trivialTester(SortsGenerics::heapSort);
-        tester(SortsGenerics::heapSort,
+        trivialTester(GenericsFastSorts::heapSort);
+        tester(GenericsFastSorts::heapSort,
                 "Generics Array Heap Sort");
-        testerObjectArray(SortsGenerics::heapSort,
+        testerObjectArray(GenericsFastSorts::heapSort,
                 "Generics Array Heap Sort");
+    }
+
+    @Test
+    void mergeSortMultithreadingTest() {
+        trivialTester(GenericsFastSortsMultithread::mergeSortMultithread);
+        tester(GenericsFastSortsMultithread::mergeSortMultithread,
+                "Generics Merge Sort Multithreading with a Fork Join Pool");
+        testerObjectArray(GenericsFastSortsMultithread::mergeSortMultithread,
+                "Generics Merge Sort Multithreading with a Fork Join Pool");
     }
 
     private static class Util {
