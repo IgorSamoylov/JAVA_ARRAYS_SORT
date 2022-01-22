@@ -106,6 +106,12 @@ class SortsTest {
 
     @Test
     void testHeapSort2() {
+        trivialTester(FastSorts::heapSort2);
+        tester(FastSorts::heapSort2, "Heap Sort2");
+    }
+
+    @Test
+    void testHeapSortL() {
         trivialTester(FastSortsExperimental::heapSortL);
         tester(FastSortsExperimental::heapSortL,
                 "Heap Sort on Lambdas");

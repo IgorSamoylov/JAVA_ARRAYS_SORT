@@ -1,6 +1,8 @@
 package com.example.java_array_sorts;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /*
  * Class contains recursive implementations of
@@ -166,6 +168,43 @@ public final class FastSorts {
             // make heap in a remaining array range
             // right to left with this new value
             makeHeap(arr, currentLargest, processingLength);
+        }
+    }
+
+    public static void heapSort2(final int[] arr) {
+        for (int i = arr.length / 2; i >= 0; i--) {
+            siftDown(arr, i, arr.length);
+        }
+        int[] result = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            result[i] = arr[0];
+            swap(arr, 0, arr.length - 1 - i);
+            siftDown(arr, 0, arr.length - 1 - i);
+        }
+        System.arraycopy(result, 0, arr, 0, result.length);
+    }
+
+    private static void siftDown(final int[] arr, int index, int size) {
+        while (index * 2 + 1 < size) {
+            int leftChild = index * 2 + 1;
+            int rightChild = index * 2 + 2;
+            int biggestItem = leftChild;
+
+            if (rightChild < size && arr[rightChild] < arr[leftChild]) {
+                biggestItem = rightChild;
+            }
+            if (arr[index] <= arr[biggestItem])
+                break;
+            swap(arr, index, biggestItem);
+            index = biggestItem;
+        }
+    }
+    private static void siftUp(final int[] arr, int index) {
+        int parent = (index - 1) / 2;
+        while (index != 0 && arr[index] < arr[parent]) {
+            swap(arr, index, parent);
+            index = parent;
+            parent = (index - 1) / 2;
         }
     }
 
