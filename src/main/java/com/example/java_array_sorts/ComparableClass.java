@@ -10,17 +10,14 @@ public class ComparableClass implements Comparable<ComparableClass> {
 
     @Override
     public int compareTo(@NotNull ComparableClass o) {
-        return val - o.val;
+        return Integer.compare(val, o.val);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ComparableClass that = (ComparableClass) o;
-
-        return val == that.val;
+        if (!(o instanceof ComparableClass comp)) return false;
+        return val == comp.val;
     }
 
     @Override

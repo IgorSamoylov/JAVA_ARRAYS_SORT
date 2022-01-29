@@ -1,8 +1,6 @@
 package com.example.java_array_sorts;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /*
  * Class contains recursive implementations of
