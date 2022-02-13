@@ -62,12 +62,12 @@ fun mergeSortInt(A: Array<Int>): Array<Int> {
 }
 
 // Iterative version of O(N)=N*log(N) MergeSort Algorithm
-// for Generics Array that using M(2*N) of memory
+// for Generics Array that using (2*N) of memory
 fun <T :Comparable<T>> mergeSortItT(A: Array<T>) {
     val buffer = A.copyOf()
     var m = 1
     while (m < A.size) {
-        // Step / 2 magnifier
+        // Step * 2 magnifier
         var bufIter = 0
         // m = 1  i = 0, 2, 4...
         // m = 2  i = 0, 4, 8...
@@ -79,12 +79,13 @@ fun <T :Comparable<T>> mergeSortItT(A: Array<T>) {
             var leftIter = i
             var rightIter = middle
             while (leftIter < middle && rightIter < middle + m && rightIter < A.size) { // Merging
-                if (A[leftIter] < A[rightIter]) buffer[bufIter++] = A[leftIter++] else buffer[bufIter++] =
-                    A[rightIter++]
+                if (A[leftIter] < A[rightIter]) buffer[bufIter++] = A[leftIter++]
+                else buffer[bufIter++] = A[rightIter++]
             }
-            while (leftIter < middle && leftIter < A.size) buffer[bufIter++] =
-                A[leftIter++] // Appending left or right tails
-            while (rightIter < middle + m && rightIter < A.size) buffer[bufIter++] = A[rightIter++]
+            while (leftIter < middle && leftIter < A.size)
+                buffer[bufIter++] = A[leftIter++] // Appending left or right tails
+            while (rightIter < middle + m && rightIter < A.size)
+                buffer[bufIter++] = A[rightIter++]
             i += 2 * m
         }
         System.arraycopy(buffer, 0, A, 0, A.size) // Drop buffer array to the source array on an each traversal
@@ -93,7 +94,7 @@ fun <T :Comparable<T>> mergeSortItT(A: Array<T>) {
 }
 
 
-// Iterative version of MergeSort Algorithm for IntArray that using M(2 * n) of memory
+// Iterative version of MergeSort Algorithm for IntArray that using (2 * N) of memory
 fun mergeSortItInt(A: IntArray) {
     val buffer = IntArray(A.size)
     var m = 1
@@ -110,12 +111,13 @@ fun mergeSortItInt(A: IntArray) {
             var leftIter = i
             var rightIter = middle
             while (leftIter < middle && rightIter < middle + m && rightIter < A.size) { // Merging
-                if (A[leftIter] < A[rightIter]) buffer[bufIter++] = A[leftIter++] else buffer[bufIter++] =
-                    A[rightIter++]
+                if (A[leftIter] < A[rightIter]) buffer[bufIter++] = A[leftIter++]
+                else buffer[bufIter++] = A[rightIter++]
             }
-            while (leftIter < middle && leftIter < A.size) buffer[bufIter++] =
-                A[leftIter++] // Appending left or right tails
-            while (rightIter < middle + m && rightIter < A.size) buffer[bufIter++] = A[rightIter++]
+            while (leftIter < middle && leftIter < A.size)
+                buffer[bufIter++] = A[leftIter++] // Appending left or right tails
+            while (rightIter < middle + m && rightIter < A.size)
+                buffer[bufIter++] = A[rightIter++]
             i += 2 * m
         }
         System.arraycopy(buffer, 0, A, 0, A.size) // Drop buffer array to the source array on an each traversal
