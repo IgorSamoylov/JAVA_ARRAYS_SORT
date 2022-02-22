@@ -9,7 +9,6 @@ import java.util.Arrays;
 class SortsTest {
     private static final int TEST_ARRAY_LENGTH = 400;
     private static final int TEST_ARRAY_VALUES_RANGE = 100;
-    static Long init, end;
     private static int[] A;
     private static int[] sortedA;
 
@@ -19,9 +18,9 @@ class SortsTest {
     // Tests the result array for a random generated input data
     static void tester(@NotNull SortMethod sortMethod, String name) {
         Util.generateRandomArray();
-        init = System.nanoTime();
+        Long init = System.nanoTime();
         sortMethod.sort(A);
-        end = System.nanoTime();
+        Long end = System.nanoTime();
         long timeResult = (end - init) / 1000;
         System.out.println("\n" + name + "\nTime elapsed: "
                 + timeResult + " mks");

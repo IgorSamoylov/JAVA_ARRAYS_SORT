@@ -12,6 +12,7 @@ public final class FastSorts {
     private FastSorts() {
     } // Do not instantiate this
 
+
     /*
         Quick Sort recursive algorithm for an integer array.
     * */
@@ -49,6 +50,7 @@ public final class FastSorts {
         return arr;
     }
 
+
     /*
      * Recursive QuickSort optimized algorithm that filling the
      * result array with the pivot values
@@ -85,6 +87,7 @@ public final class FastSorts {
                 lowerSize + pivotValueCounter, higherSize);
         return arr;
     }
+
 
     /*
      *  Recursive implementation of Merge sort
@@ -127,6 +130,7 @@ public final class FastSorts {
         return arr;
     }
 
+
     /*
      * Implementation of HeapSort for presented integer array
      * with calls for makeHeap() method
@@ -146,11 +150,14 @@ public final class FastSorts {
         }
     }
 
+
     /* Makes heap structure in the presented integer array arr,
      * firstIndex means first item to proceed making heap,
      * processingLength means last index in array that not be proceeded.
      * */
-    private static void makeHeap(int[] arr, int firstIndex, int processingLength) {
+    private static void makeHeap(final int[] arr,
+                                 final int firstIndex,
+                                 final int processingLength) {
         int currentLargest = firstIndex;
         int leftChild = 2 * firstIndex + 1;
         int rightChild = 2 * firstIndex + 2;
@@ -169,6 +176,10 @@ public final class FastSorts {
         }
     }
 
+    /* Optimized Heap sort algorithm, which used a special
+        siftDown method to move top
+        items down along the heap tree.
+    * */
     public static void heapSort2(final int[] arr) {
         for (int i = arr.length / 2; i >= 0; i--) {
             siftDown(arr, i, arr.length);
@@ -182,21 +193,32 @@ public final class FastSorts {
         System.arraycopy(result, 0, arr, 0, result.length);
     }
 
-    private static void siftDown(final int[] arr, int index, int size) {
-        while (index * 2 + 1 < size) {
-            int leftChild = index * 2 + 1;
-            int rightChild = index * 2 + 2;
-            int biggestItem = leftChild;
 
+    private static void siftDown(final int[] arr, int index, final int size) {
+        int leftChild = index * 2 + 1;
+
+        while (leftChild < size) {
+
+            int rightChild = index * 2 + 2;
+            int biggestItem;
+            // If right child exists and is a larger, set the biggest
+            // item index to its index
             if (rightChild < size && arr[rightChild] < arr[leftChild]) {
                 biggestItem = rightChild;
-            }
+            } else biggestItem = leftChild;
+
+            // Break if we has found no more biggest value in the heap branch that the current value
             if (arr[index] <= arr[biggestItem])
                 break;
+            // Else sift down current value
             swap(arr, index, biggestItem);
+            // And go down to the next heap's tier
             index = biggestItem;
+            leftChild = index * 2 + 1;
         }
     }
+
+
     private static void siftUp(final int[] arr, int index) {
         int parent = (index - 1) / 2;
         while (index != 0 && arr[index] < arr[parent]) {
@@ -207,7 +229,7 @@ public final class FastSorts {
     }
 
     // Auxiliary method that swaps items by index x and y in the gotten array.
-    private static void swap(int[] array, int x, int y) {
+    private static void swap(int[] array, final int x, final int y) {
         int tmp = array[x];
         array[x] = array[y];
         array[y] = tmp;
