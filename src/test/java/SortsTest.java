@@ -78,6 +78,13 @@ class SortsTest {
     }
 
     @Test
+    void testCountingSortTM() {
+        trivialTester(CountingSortTM::countingSortTM);
+        tester(CountingSortTM::countingSortTM,
+                "Counting Sort Tree Map");
+    }
+
+    @Test
     void testQuickSort() {
         trivialTester(FastSorts::quickSort);
         tester(FastSorts::quickSort, "Quick Sort");
