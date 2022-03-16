@@ -18,9 +18,11 @@ public final class CountingSort {
         /* Index of an counter array item means value of the input array item
          * Value of an counter array item = number of a
          * repeating items in the input array */
-        for (int i : A) counter[i]++;
+        for (int i : A)
+            counter[i]++;
         int n = 0;
         for (int j = 0; j < counter.length; j++)
-            for (int valAmount = counter[j]; valAmount > 0; valAmount--, n++) A[n] = j;
+            for (int valAmount = 0; valAmount < counter[j]; valAmount++)
+                A[n++] = j;
     }
 }

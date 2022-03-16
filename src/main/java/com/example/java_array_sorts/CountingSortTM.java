@@ -14,7 +14,7 @@ public class CountingSortTM {
         }
 
         int count = 0;
-        for (Map.Entry<Integer, Integer> entry : counter.entrySet()) {
+        for (var entry : counter.entrySet()) {
             for (int i = 0; i < entry.getValue(); i++)
                 A[count++] = entry.getKey();
         }
