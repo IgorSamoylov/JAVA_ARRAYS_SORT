@@ -55,7 +55,7 @@ public class IterativeFastSorts {
  */
 
 
-// Just simple testing method
+// Just a simple testing method
     public static void main(String[] args) {
         int[] A = {6, 7, 4, 3, 2, 1, 5, 0, 9, 17};
         mergeSortIterative(A);
