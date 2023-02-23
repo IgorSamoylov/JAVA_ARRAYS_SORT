@@ -9,7 +9,7 @@ public class GenericsFastSortsMultithread {
     private GenericsFastSortsMultithread() {} // Do not instantiate this
 
     /*
-     *  Method - adapter that converts List<Comparable <<T> to
+     *  Method - adapter that converts List<Comparable <<T> to a
      * primitive Object T[] array for mergeSortC recursive function
      * and receive the result T[] array from it with back conversion.
      * Works faster that the function with simple List operations only.
@@ -21,12 +21,14 @@ public class GenericsFastSortsMultithread {
             objectArray[i] = A.get(i);
         }
 
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
-        SortTaskRecursive<T> sortTaskRecursive = new SortTaskRecursive<>();
-        sortTaskRecursive.setRawResult(objectArray);
-        objectArray = forkJoinPool.invoke(sortTaskRecursive);
-        for (int i = 0; i < objectArray.length; ++i) {
-            A.set(i, (T) objectArray[i]);
+        try (ForkJoinPool forkJoinPool = new ForkJoinPool()) {
+            SortTaskRecursive<T> sortTaskRecursive = new SortTaskRecursive<>();
+            sortTaskRecursive.setRawResult(objectArray);
+            objectArray = forkJoinPool.invoke(sortTaskRecursive);
+
+            for (int i = 0; i < objectArray.length; ++i) {
+                A.set(i, (T) objectArray[i]);
+            }
         }
     }
 }
@@ -57,7 +59,7 @@ class SortTaskRecursive<T extends Comparable<T>> extends ForkJoinTask<Object[]> 
     @SuppressWarnings("unchecked")
     @Override
     protected boolean exec() {
-        /*if (arr.length == 2) {
+        if (arr.length == 2) {
             // Swap values if array has 2 items at incorrect order
             if (((Comparable<T>) (arr[0])).compareTo((T) (arr[1])) > 0) {
                 Object tmp = arr[1];
@@ -65,8 +67,9 @@ class SortTaskRecursive<T extends Comparable<T>> extends ForkJoinTask<Object[]> 
                 arr[0] = tmp;
             }
             return true;
-        } else if (arr.length < 2) return true;*/
-        if (arr.length < 50) {
+        } else if (arr.length < 2) return true;
+
+        /*if (arr.length < 50) {
             boolean noSwaps = false;
             int traversals = arr.length;
 
@@ -83,7 +86,7 @@ class SortTaskRecursive<T extends Comparable<T>> extends ForkJoinTask<Object[]> 
                 }
             }
             return true;
-        }
+        }*/
 
         int halfSize = arr.length / 2;
         // Creating new half-sized sub-arrays
